@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>dtcpay — Get Started</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0a0a0a;
+      color: #e0e0e0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 16px;
+    }
+
+    .card {
+      background: #161616;
+      border: 1px solid #2a2a2a;
+      border-radius: 16px;
+      padding: 40px 36px;
+      width: 100%;
+      max-width: 520px;
+    }
+
+    /* Brand */
+    .brand {
+      text-align: center;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+    .brand span { color: #6c5ce7; }
+
+    .subtitle {
+      text-align: center;
+      color: #888;
+      font-size: 14px;
+      margin-bottom: 32px;
+    }
+
+    /* Track selector */
+    .track-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .track-btn {
+      padding: 12px;
+      border: 1px solid #2a2a2a;
+      border-radius: 10px;
+      background: #1e1e1e;
+      color: #aaa;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s, background 0.15s;
+      text-align: center;
+    }
+    .track-btn .track-label { display: block; font-size: 15px; font-weight: 600; color: #ddd; }
+    .track-btn .track-sub   { display: block; font-size: 11px; margin-top: 2px; }
+    .track-btn:hover { border-color: #6c5ce7; }
+    .track-btn.active {
+      border-color: #6c5ce7;
+      background: rgba(108, 92, 231, 0.1);
+      color: #c4b8ff;
+    }
+    .track-btn.active .track-label { color: #c4b8ff; }
+
+    /* Fields */
+    .field { margin-bottom: 18px; }
+    .field label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #bbb;
+      margin-bottom: 6px;
+    }
+    .badge-opt {
+      font-size: 10px;
+      color: #666;
+      font-weight: 400;
+    }
+    .badge-ai {
+      font-size: 10px;
+      background: rgba(108, 92, 231, 0.18);
+      color: #a89af7;
+      border: 1px solid rgba(108, 92, 231, 0.3);
+      border-radius: 4px;
+      padding: 1px 5px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    select {
+      width: 100%;
+      background: #1e1e1e;
+      border: 1px solid #2a2a2a;
+      border-radius: 8px;
+      color: #e0e0e0;
+      font-size: 14px;
+      padding: 10px 12px;
+      outline: none;
+      transition: border-color 0.15s;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    input[type="text"]::placeholder,
+    input[type="email"]::placeholder { color: #555; }
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    select:focus { border-color: #6c5ce7; }
+
+    .select-wrap { position: relative; }
+    .select-wrap::after {
+      content: "▾";
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #555;
+      pointer-events: none;
+      font-size: 12px;
+    }
+    select { padding-right: 30px; cursor: pointer; }
+    select option { background: #1e1e1e; }
+
+    /* Checkbox group */
+    .checkbox-group { display: flex; flex-direction: column; gap: 8px; }
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      font-size: 14px;
+      color: #ccc;
+      user-select: none;
+    }
+    .checkbox-item input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: #6c5ce7;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    /* Divider */
+    .divider {
+      border: none;
+      border-top: 1px solid #222;
+      margin: 24px 0 18px;
+    }
+
+    /* Submit */
+    .submit-btn {
+      width: 100%;
+      padding: 13px;
+      background: #6c5ce7;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.15s, opacity 0.15s;
+      margin-top: 8px;
+    }
+    .submit-btn:hover:not(:disabled) { background: #5a4bd4; }
+    .submit-btn:disabled {
+      background: #2a2a2a;
+      color: #555;
+      cursor: not-allowed;
+    }
+
+    /* Hidden / shown */
+    .section { display: none; }
+    .section.visible { display: block; }
+    .always-visible { display: block; }
+  </style>
+</head>
+<body>
+<div class="card">
+  <div class="brand">dtc<span>pay</span></div>
+  <div class="subtitle">Start your journey with digital payments</div>
+
+  <form
+    action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8"
+    method="POST"
+    id="leadForm"
+    novalidate
+  >
+    <!-- Hidden Salesforce fields -->
+    <input type="hidden" name="oid"         value="YOUR_ORG_ID" />
+    <input type="hidden" name="retURL"      value="https://dtcpay.com/thank-you" />
+    <input type="hidden" name="lead_source" value="Website" />
+
+    <!-- Track selector -->
+    <div class="track-row">
+      <button type="button" class="track-btn" id="btn-b2c" onclick="selectTrack('b2c')">
+        <span class="track-label">Individual</span>
+        <span class="track-sub">B2C</span>
+      </button>
+      <button type="button" class="track-btn" id="btn-b2b" onclick="selectTrack('b2b')">
+        <span class="track-label">Business</span>
+        <span class="track-sub">B2B</span>
+      </button>
+    </div>
+
+    <!-- ── SHARED: Full Name ── -->
+    <div class="field always-visible" id="field-name" style="display:none;">
+      <label for="last_name">Full Name <span class="badge-opt" style="color:#c0392b;">*</span></label>
+      <input type="text" id="last_name" name="last_name" placeholder="Your full name" required />
+    </div>
+
+    <!-- ── B2C ONLY: Email ── -->
+    <div class="field section" id="field-email-b2c">
+      <label for="email_b2c">Email <span class="badge-ai">AI scoring</span></label>
+      <input type="email" id="email_b2c" name="email" placeholder="you@email.com" required />
+    </div>
+
+    <!-- ── B2B ONLY: Work Email ── -->
+    <div class="field section" id="field-email-b2b">
+      <label for="email_b2b">Work Email <span class="badge-ai">AI scoring</span></label>
+      <input type="email" id="email_b2b" name="email" placeholder="you@company.com" required />
+    </div>
+
+    <!-- ── B2B ONLY: Company Name ── -->
+    <div class="field section" id="field-company">
+      <label for="company">Company Name <span class="badge-opt" style="color:#c0392b;">*</span></label>
+      <input type="text" id="company" name="company" placeholder="Acme Corp" required />
+    </div>
+
+    <!-- ── B2B ONLY: Organization Type ── -->
+    <div class="field section" id="field-orgtype">
+      <label for="orgtype">Organization Type <span class="badge-ai">AI scoring</span></label>
+      <div class="select-wrap">
+        <select id="orgtype" name="00Nxx000000ORGTYPE" required>
+          <option value="" disabled selected>Select type…</option>
+          <option value="Merchant / Retailer">Merchant / Retailer</option>
+          <option value="Corporate / Treasury">Corporate / Treasury</option>
+          <option value="Financial Institution">Financial Institution</option>
+          <option value="Payment Service Provider">Payment Service Provider</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- ── SHARED: Country ── -->
+    <div class="field" id="field-country" style="display:none;">
+      <label for="country">Country <span class="badge-ai">AI scoring</span></label>
+      <div class="select-wrap">
+        <select id="country" name="country" required>
+          <option value="" disabled selected>Select country…</option>
+          <optgroup label="Priority Markets">
+            <option value="SG">Singapore</option>
+            <option value="AE">United Arab Emirates</option>
+            <option value="HK">Hong Kong</option>
+            <option value="ID">Indonesia</option>
+            <option value="TH">Thailand</option>
+            <option value="PH">Philippines</option>
+            <option value="MY">Malaysia</option>
+            <option value="DE">Germany</option>
+            <option value="GB">United Kingdom</option>
+            <option value="CH">Switzerland</option>
+          </optgroup>
+          <optgroup label="All Regions">
+            <option value="US">United States</option>
+            <option value="JP">Japan</option>
+            <option value="KR">South Korea</option>
+            <option value="AU">Australia</option>
+            <option value="IN">India</option>
+            <option value="OTHER">Other</option>
+          </optgroup>
+        </select>
+      </div>
+    </div>
+
+    <!-- ── B2C ONLY: Interested In ── -->
+    <div class="field section" id="field-b2c-services">
+      <label>Interested In <span class="badge-ai">AI scoring</span></label>
+      <div class="checkbox-group" id="b2c-services">
+        <label class="checkbox-item">
+          <input type="checkbox" name="service_b2c" value="Stablecoin Buy/Sell" onchange="handleB2CService(this)" />
+          Stablecoin Buy/Sell
+        </label>
+        <label class="checkbox-item">
+          <input type="checkbox" name="service_b2c" value="dtcpay Visa Card" onchange="handleB2CService(this)" />
+          dtcpay Visa Card
+        </label>
+        <label class="checkbox-item">
+          <input type="checkbox" name="service_b2c" value="Both" onchange="handleB2CService(this)" />
+          Both
+        </label>
+      </div>
+    </div>
+
+    <!-- ── B2B ONLY: Services of Interest ── -->
+    <div class="field section" id="field-b2b-services">
+      <label>Services of Interest <span class="badge-ai">AI scoring</span></label>
+      <div class="checkbox-group">
+        <label class="checkbox-item">
+          <input type="checkbox" name="service_b2b" value="Payment Acceptance" />
+          Payment Acceptance
+        </label>
+        <label class="checkbox-item">
+          <input type="checkbox" name="service_b2b" value="Stablecoin On/Offramp" />
+          Stablecoin On/Offramp
+        </label>
+        <label class="checkbox-item">
+          <input type="checkbox" name="service_b2b" value="Visa Card Program" />
+          Visa Card Program
+        </label>
+        <label class="checkbox-item">
+          <input type="checkbox" name="service_b2b" value="API / White-label" />
+          API / White-label
+        </label>
+      </div>
+    </div>
+
+    <!-- ── Divider before Volume ── -->
+    <hr class="divider" id="divider-vol" style="display:none;" />
+
+    <!-- ── B2C ONLY: Monthly Volume ── -->
+    <div class="field section" id="field-vol-b2c">
+      <label for="vol_b2c">
+        Expected Monthly Volume
+        <span class="badge-opt">Optional</span>
+        <span class="badge-ai">AI scoring — #1 signal</span>
+      </label>
+      <div class="select-wrap">
+        <select id="vol_b2c" name="00Nxx000000VOLB2C">
+          <option value="">Prefer not to say</option>
+          <option value="&lt; $1,000">&lt; $1,000</option>
+          <option value="$1k – $10k">$1k – $10k</option>
+          <option value="$10k – $50k">$10k – $50k</option>
+          <option value="$50k+">$50k+</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- ── B2B ONLY: Monthly Volume ── -->
+    <div class="field section" id="field-vol-b2b">
+      <label for="vol_b2b">
+        Est. Monthly Transaction Volume
+        <span class="badge-opt">Optional</span>
+        <span class="badge-ai">AI scoring — #1 signal</span>
+      </label>
+      <div class="select-wrap">
+        <select id="vol_b2b" name="00Nxx000000VOLB2B">
+          <option value="">Prefer not to say</option>
+          <option value="&lt; $50k">&lt; $50k</option>
+          <option value="$50k – $500k">$50k – $500k</option>
+          <option value="$500k – $5M">$500k – $5M</option>
+          <option value="$5M+">$5M+</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- ── B2B ONLY: Job Title ── -->
+    <div class="field section" id="field-title">
+      <label for="title">
+        Job Title
+        <span class="badge-opt">Optional</span>
+        <span class="badge-ai">AI scoring</span>
+      </label>
+      <input type="text" id="title" name="title" placeholder="e.g. Head of Treasury" />
+    </div>
+
+    <!-- Submit -->
+    <button type="submit" class="submit-btn" id="submit-btn" disabled>
+      Select a track to continue
+    </button>
+  </form>
+</div>
+
+<script>
+  let currentTrack = null;
+
+  const b2cSections  = ['field-email-b2c','field-b2c-services','field-vol-b2c'];
+  const b2bSections  = ['field-email-b2b','field-company','field-orgtype','field-b2b-services','field-vol-b2b','field-title'];
+  const sharedFields = ['field-name','field-country'];
+  const divider      = document.getElementById('divider-vol');
+  const submitBtn    = document.getElementById('submit-btn');
+
+  function setDisabled(ids, disabled) {
+    ids.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.querySelectorAll('input, select').forEach(inp => {
+        inp.disabled = disabled;
+      });
+    });
+  }
+
+  function selectTrack(track) {
+    currentTrack = track;
+
+    // Update track buttons
+    document.getElementById('btn-b2c').classList.toggle('active', track === 'b2c');
+    document.getElementById('btn-b2b').classList.toggle('active', track === 'b2b');
+
+    // Show shared fields
+    sharedFields.forEach(id => {
+      document.getElementById(id).style.display = 'block';
+    });
+
+    // Toggle B2C sections
+    b2cSections.forEach(id => {
+      const el = document.getElementById(id);
+      if (track === 'b2c') {
+        el.classList.add('visible');
+      } else {
+        el.classList.remove('visible');
+      }
+    });
+
+    // Toggle B2B sections
+    b2bSections.forEach(id => {
+      const el = document.getElementById(id);
+      if (track === 'b2b') {
+        el.classList.add('visible');
+      } else {
+        el.classList.remove('visible');
+      }
+    });
+
+    // Disable hidden track's fields so they don't block submit
+    setDisabled(track === 'b2c' ? b2bSections : b2cSections, true);
+    setDisabled(track === 'b2c' ? b2cSections : b2bSections, false);
+
+    // Show divider
+    divider.style.display = 'block';
+
+    // Update submit button
+    submitBtn.disabled = false;
+    submitBtn.textContent = track === 'b2c' ? 'Get Started' : 'Request a Consultation';
+  }
+
+  // B2C mutual exclusion: "Both" vs individual options
+  function handleB2CService(changed) {
+    const checkboxes = document.querySelectorAll('input[name="service_b2c"]');
+    if (changed.value === 'Both' && changed.checked) {
+      checkboxes.forEach(cb => {
+        if (cb.value !== 'Both') cb.checked = false;
+      });
+    } else if (changed.value !== 'Both' && changed.checked) {
+      checkboxes.forEach(cb => {
+        if (cb.value === 'Both') cb.checked = false;
+      });
+    }
+  }
+
+  // Client-side validation before submit
+  document.getElementById('leadForm').addEventListener('submit', function(e) {
+    if (!currentTrack) { e.preventDefault(); return; }
+
+    // Validate at least one service checkbox
+    if (currentTrack === 'b2c') {
+      const checked = [...document.querySelectorAll('input[name="service_b2c"]')].some(cb => cb.checked);
+      if (!checked) {
+        e.preventDefault();
+        alert('Please select at least one option under "Interested In".');
+        return;
+      }
+    }
+    if (currentTrack === 'b2b') {
+      const checked = [...document.querySelectorAll('input[name="service_b2b"]')].some(cb => cb.checked);
+      if (!checked) {
+        e.preventDefault();
+        alert('Please select at least one option under "Services of Interest".');
+        return;
+      }
+    }
+  });
+</script>
+</body>
+</html>
