@@ -257,6 +257,47 @@
       </div>
     </div>
 
+    <!-- ── B2B ONLY: Industry ── -->
+    <div class="field section" id="field-industry">
+      <label for="industry">Industry</label>
+      <div class="select-wrap">
+        <select id="industry" name="industry" required>
+          <option value="" disabled selected>Select industry…</option>
+          <option value="Agriculture">Agriculture</option>
+          <option value="Apparel">Apparel</option>
+          <option value="Banking">Banking</option>
+          <option value="Biotechnology">Biotechnology</option>
+          <option value="Chemicals">Chemicals</option>
+          <option value="Communications">Communications</option>
+          <option value="Construction">Construction</option>
+          <option value="Consulting">Consulting</option>
+          <option value="Education">Education</option>
+          <option value="Electronics">Electronics</option>
+          <option value="Energy">Energy</option>
+          <option value="Engineering">Engineering</option>
+          <option value="Entertainment">Entertainment</option>
+          <option value="Environmental">Environmental</option>
+          <option value="Finance">Finance</option>
+          <option value="Food &amp; Beverage">Food &amp; Beverage</option>
+          <option value="Government">Government</option>
+          <option value="Healthcare">Healthcare</option>
+          <option value="Hospitality">Hospitality</option>
+          <option value="Insurance">Insurance</option>
+          <option value="Machinery">Machinery</option>
+          <option value="Media">Media</option>
+          <option value="Not For Profit">Not For Profit</option>
+          <option value="Recreation">Recreation</option>
+          <option value="Retail">Retail</option>
+          <option value="Shipping">Shipping</option>
+          <option value="Technology">Technology</option>
+          <option value="Telecommunications">Telecommunications</option>
+          <option value="Transportation">Transportation</option>
+          <option value="Utilities">Utilities</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+    </div>
+
     <!-- ── SHARED: Country ── -->
     <div class="field" id="field-country" style="display:none;">
       <label for="country">Country <span class="badge-ai">AI scoring</span></label>
@@ -389,7 +430,7 @@
   let currentTrack = null;
 
   const b2cSections  = ['field-email-b2c','field-b2c-services','field-vol-b2c'];
-  const b2bSections  = ['field-email-b2b','field-company','field-orgtype','field-b2b-services','field-vol-b2b','field-title'];
+  const b2bSections  = ['field-email-b2b','field-company','field-orgtype','field-industry','field-b2b-services','field-vol-b2b','field-title'];
   const sharedFields = ['field-name','field-country'];
   const divider      = document.getElementById('divider-vol');
   const submitBtn    = document.getElementById('submit-btn');
